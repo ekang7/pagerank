@@ -15,9 +15,13 @@ def pagerank(n, p = 0.15):
     with open(sys.argv[1], "r") as file: 
         reader = csv.reader(file)
         for row in reader:
-            for entry in range(n): 
-                if row[entry] != 0: 
+            for entry in range(n):
+                if row[entry]=='':
+                    row[entry] = 0  
+                elif row[entry] != 0: 
                     row[entry] = (1 - p) * decimalizer(row[entry]) + p * (1 / n)
+                
+
             a.append(row)
     # Transposes matrix so we can work with its column vectors more easily
     m = np.array(a)
@@ -52,8 +56,11 @@ def pagerank(n, p = 0.15):
 def decimalizer(x): 
     if x == '0': 
         return 0
+    elif x == '1': 
+        return 1
     else: 
+        print(x)
         return 1.0/float(x[2:])
 
 if __name__ == "__main__":
-    pagerank(7)
+    pagerank(39)
